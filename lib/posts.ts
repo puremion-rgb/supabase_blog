@@ -16,7 +16,7 @@ const POST_COLUMNS = "id, title, content, created_at, updated_at";
 
 export async function getPosts(): Promise<Post[]> {
   // 1. supabase Client  가져오기
-  const supabase = createClient();
+  const supabase = await createClient();
   // 2. 데이터 가져오기
   // {data, error} 객체를 반환
   const { data, error } = await supabase
@@ -41,7 +41,7 @@ export async function getPost(idParam: string): Promise<Post> {
     notFound();
   }
   // 3. supabase client 가져오기
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from("posts")
     .select(POST_COLUMNS)
