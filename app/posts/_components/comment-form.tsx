@@ -16,14 +16,6 @@ export function CommentForm({ postId }: { postId: number }) {
       className="flex flex-col gap-3 rounded-md border border-[#21231f]/10 bg-[#fffdf9] p-4"
     >
       <input type="hidden" name="post_id" value={postId} />
-      <input
-        type="text"
-        name="author"
-        placeholder="이름"
-        maxLength={30}
-        required
-        className="rounded-md border border-[#21231f]/15 bg-white px-3 py-2 text-sm outline-none focus:border-[#2f6f62] focus:ring-1 focus:ring-[#2f6f62]"
-      />
       <textarea
         name="content"
         placeholder="댓글을 남겨보세요"

@@ -1,7 +1,18 @@
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { PostForm } from "../_components/post-form";
 import { createPost } from "./actions";
 
-export default function NewPostPage() {
+export default async function NewPostPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/posts");
+  }
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
       <h1 className="mb-6 text-xl font-semibold">리뷰 쓰기</h1>

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PostForm } from "../../_components/post-form";
 import { updatePost } from "./actions";
 
@@ -10,6 +10,11 @@ export default async function EditPostPage({
 }) {
   const { id } = await params;
   const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { data: post } = await supabase
     .from("posts")
     .select("*")
@@ -18,8 +23,10 @@ export default async function EditPostPage({
 
   if (!post) notFound();
 
-  // id를 bind로 미리 묶어서 넘김 (formData에 title/content만 있어도 id를 알 수 있게)
-  const updatePostWithId = updatePost.bind(null);
+  // 로그인 안 했거나 본인 글이 아니면 상세 페이지로 돌려보냄
+  if (!user || user.id !== post.user_id) {
+    redirect(`/posts/${id}`);
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">

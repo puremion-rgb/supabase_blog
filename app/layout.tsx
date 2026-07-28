@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Serif_KR } from "next/font/google";
 import Link from "next/link";
+import { AuthButton } from "./posts/_components/auth-button";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -44,9 +45,7 @@ export default function RootLayout({
             >
               📝 리뷰노트
             </Link>
-            <span className="text-xs text-[#6b6a61]">
-              보고 읽고 먹은 것들의 기록
-            </span>
+            <AuthButton />
           </div>
         </header>
         <main className="flex-1">{children}</main>

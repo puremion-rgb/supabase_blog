@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { PostFormState } from "../types";
 import { CATEGORIES } from "../utils";
+import { ImageInput } from "./image-input";
 
 const FIELD_CLASS =
   "w-full rounded-md border border-[#21231f]/15 bg-white px-3 py-2 text-sm outline-none focus:border-[#2f6f62] focus:ring-1 focus:ring-[#2f6f62]";
@@ -25,6 +26,7 @@ export function PostForm({
     content: string;
     category?: string;
     rating?: number;
+    imageUrl?: string | null;
   };
   submitLabel: string;
   cancelHref: string;
@@ -44,6 +46,8 @@ export function PostForm({
       {hiddenId !== undefined && (
         <input type="hidden" name="id" value={hiddenId} />
       )}
+
+      <ImageInput defaultPreview={defaultValues?.imageUrl} />
 
       <div className="flex flex-col gap-2">
         <label
@@ -136,7 +140,7 @@ export function PostForm({
       <div className="flex items-center gap-3">
         <button
           type="submit"
-          className="rounded-md bg-[#2f6f62] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#26594f]"
+          className="rounded-md bg-[#2f6f62] px-4 py-2 text-sm font-medium text-white hover:bg-[#26594f]"
         >
           {submitLabel}
         </button>
